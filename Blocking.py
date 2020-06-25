@@ -14,10 +14,16 @@ with open('blocking_stats.csv', newline='') as csvfile:
 
 #Now lets generate and sim
 
-while genned < 25000:
+while genned < 1000:
+
+    #let's roll the block type
+    blockstyle = random.randint(1,3)
 
     #offense generation
-    roll_off = random.randint(1,22)
+    if blockstyle == 3:
+        roll_off = random.randint(5,21)
+    else:
+        roll_off = random.randint(1,21)
     pos_off = positions[roll_off][0]
     star_off = random.randint(0,4)
     trait_off = positions[roll_off][1]
@@ -182,13 +188,12 @@ while genned < 25000:
     def_agi = random.randint(u,v)
     def_iq = random.randint(w,x)
 
-    block_type = random.randint(1,3)
-    if block_type == 1:
+    if blockstyle == 1:
         test = "Man"
         value_off = (off_run * .4 + off_spe * .1 + off_stre * .25 + off_agi * .1 + off_iq * .15)
         value_def = (def_run * .4 + def_spe * .1 + def_stre * .25 + def_agi * .1 + def_iq * .15)
         
-    elif block_type == 2:
+    elif blockstyle == 2:
         test = "Zone"
         value_off = (off_run * .4 + off_spe * .1 + off_stre * .1 + off_agi * .25 + off_iq * .15)
         value_def = (def_run * .4 + def_spe * .1 + def_stre * .1 + def_agi * .25 + def_iq * .15)
@@ -207,7 +212,7 @@ while genned < 25000:
     result = value_off - value_def
 
     #Lets Put it all together
-    blocks.append([pos_off,star_off,trait_off,value_off,pos_def,star_def,trait_def,value_def,winner,result,off_run,off_pass,off_spe,off_stre,off_agi,off_iq,def_run,def_pass,def_spe,def_stre,def_agi,def_iq])
+    blocks.append([test,pos_off,star_off,trait_off,value_off,pos_def,star_def,trait_def,value_def,winner,result,off_run,off_pass,off_spe,off_stre,off_agi,off_iq,def_run,def_pass,def_spe,def_stre,def_agi,def_iq])
     genned += 1
 
     #let's make sure we're working
@@ -216,5 +221,5 @@ while genned < 25000:
 #Now Lets output
 with open('blocking_trials.csv', "w") as output:
     writer = csv.writer(output, lineterminator="\n")
-    writer.writerow(["OffP"]+["OffS"]+["OffT"]+["Off Score"]+["DefP"]+["DefS"]+["DefT"]+["Off Score"]+["Winner"]+["Diff"]+["off_run"]+["off_pass"]+["off_spe"]+["off_stre"]+["off_agi"]+["off_iq"]+["def_run"]+["def_pass"]+["def_spe"]+["def_stre"]+["def_agi"]+["def_iq"])
+    writer.writerow(["Trial"]+["OffP"]+["OffS"]+["OffT"]+["Off Score"]+["DefP"]+["DefS"]+["DefT"]+["Off Score"]+["Winner"]+["Diff"]+["off_run"]+["off_pass"]+["off_spe"]+["off_stre"]+["off_agi"]+["off_iq"]+["def_run"]+["def_pass"]+["def_spe"]+["def_stre"]+["def_agi"]+["def_iq"])
     writer.writerows(blocks)
