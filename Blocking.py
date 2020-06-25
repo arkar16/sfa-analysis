@@ -21,9 +21,9 @@ while genned < 1000:
 
     #offense generation
     if blockstyle == 3:
-        roll_off = random.randint(5,21)
+        roll_off = random.randint(1,21) #Pass includes RBs
     else:
-        roll_off = random.randint(1,21)
+        roll_off = random.randint(5,21) #Man/Zone does not
     pos_off = positions[roll_off][0]
     star_off = random.randint(0,4)
     trait_off = positions[roll_off][1]
